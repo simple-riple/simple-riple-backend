@@ -69,6 +69,7 @@ jobs:
 
   done:
     if: always()
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
       # 배포 결과 슬랙 전송
