@@ -5,7 +5,7 @@ on:
     branches: [ test2 ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
           target: "/srv/deploy"
           strip_components: 1
 
-      - name: Deploy to EC2
+      - name: Deploy to Oracle Cloud
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ORACLE_INSTANCE_HOST }}
