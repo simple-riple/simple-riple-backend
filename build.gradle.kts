@@ -54,3 +54,14 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks {
+
+    jar {
+        // 빌드시 *-plain.jar 생성하지 않기
+        enabled = false
+    }
+
+}
+
+
