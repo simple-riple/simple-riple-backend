@@ -2,7 +2,7 @@ name: Deploy Dev Server
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ test2 ]
 
 jobs:
   build:
@@ -31,15 +31,9 @@ jobs:
 #          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DOCKER_TAG_DEV }} .
 #          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DOCKER_TAG_DEV }}
 
-#  setup-env:
-#    runs-on: ubuntu-latest
-#    steps:
 #      - name: Create .env file for docker-compose
 #      - name: Create spring.env file
 
-#  deploy:
-#    runs-on: ubuntu-latest
-#    steps:
 #      # EC2로 쉘 스크립트 전송
 #      - name: Send scripts to Oracle Cloud
 #        uses: appleboy/scp-action@master
@@ -67,11 +61,6 @@ jobs:
 #            ${{ secrets.DOCKER_REPOSITORY }} \
 #            ${{ secrets.DOCKER_TAG_DEV }}
 
-  done:
-    if: always()
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    steps:
       # 배포 결과 슬랙 전송
       - name: Send result to slack
         uses: 8398a7/action-slack@v3
@@ -81,3 +70,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL_CICD }}
+        if: always()
