@@ -1,7 +1,8 @@
 :hardbreaks:
 
-// root 경로 지정
-// :rootDir: ./src/docs/asciidoc/domain
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
 
 // nav 사이드바
 :toc: left
