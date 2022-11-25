@@ -6,6 +6,9 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+
+    // asciidoctor
+    id("org.asciidoctor.jvm.convert") version "3.3.2"
 }
 
 group = "com.example"
@@ -28,11 +31,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // basic
+    // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
-    // core
+    // spring core
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // database
@@ -42,6 +45,7 @@ dependencies {
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 tasks.withType<KotlinCompile> {
@@ -51,17 +55,35 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+// ---------------------------- ( ext ) ----------------------------
+
+ext {
+    set("snippetsDir", file("build/generated-snippets"))
 }
 
-tasks {
+// ---------------------------- ( task ) ----------------------------
+
+tasks{
+
+    test {
+        useJUnitPlatform()
+        outputs.dir(ext.get("snippetsDir") as File)
+    }
+
+    asciidoctor {
+        dependsOn(test)
+        inputs.dir(ext.get("snippetsDir") as File)
+    }
 
     jar {
         // 빌드시 *-plain.jar 생성하지 않기
         enabled = false
     }
 
+    bootJar {
+        dependsOn(asciidoctor)
+        from("${asciidoctor.get().outputDir}") {
+            into("BOOT-INF/classes/static/docs")
+        }
+    }
 }
-
-

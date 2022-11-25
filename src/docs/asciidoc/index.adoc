@@ -1,0 +1,26 @@
+:hardbreaks:
+
+// root 경로 지정
+// :rootDir: ./src/docs/asciidoc/domain
+
+// nav 사이드바
+:toc: left
+
+// -------------------------------------------------------------------------------------------------
+
+= simple-ripe API RestDocs
+
+// -------------------------------------------------------------------------------------------------
+
+== ✔ 테스트
+
+=== health
+'''
+
+`*Request*`
+include::{snippets}/temp/http-request.adoc[]
+
+`*Response*`
+
+include::{snippets}/temp/http-response.adoc[]
+include::{snippets}/temp/response-fields.adoc[]
