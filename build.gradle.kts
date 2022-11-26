@@ -38,6 +38,9 @@ dependencies {
     // spring core
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    // swagger
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
     // database
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
@@ -83,7 +86,8 @@ tasks{
     bootJar {
         dependsOn(asciidoctor)
         from("${asciidoctor.get().outputDir}") {
-            into("BOOT-INF/classes/static/docs")
+            into("BOOT-INF/classes/static/rest-docs")
+//            into("src/main/resources/static/rest-docs")
         }
     }
 }
