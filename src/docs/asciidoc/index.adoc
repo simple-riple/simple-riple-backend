@@ -1,9 +1,5 @@
 :hardbreaks:
 
-ifndef::snippets[]
-:snippets: ./build/generated-snippets
-endif::[]
-
 // nav 사이드바
 :toc: left
 
@@ -13,15 +9,33 @@ endif::[]
 
 // -------------------------------------------------------------------------------------------------
 
-== ✔ 테스트
+　
 
-=== health
+== ✔ 임시 테스트용
+
+=== getTemp
 '''
 
 `*Request*`
-include::{snippets}/temp/http-request.adoc[]
+include::{snippets}/getTemp/http-request.adoc[]
+include::{snippets}/getTemp/path-parameters.adoc[]
+include::{snippets}/getTemp/request-parameters.adoc[]
 
 `*Response*`
 
-include::{snippets}/temp/http-response.adoc[]
-include::{snippets}/temp/response-fields.adoc[]
+include::{snippets}/getTemp/http-response.adoc[]
+include::{snippets}/getTemp/response-fields.adoc[]
+
+　
+
+=== postTemp
+'''
+
+`*Request*`
+include::{snippets}/postTemp/http-request.adoc[]
+include::{snippets}/postTemp/request-fields.adoc[]
+
+`*Response*`
+
+include::{snippets}/postTemp/http-response.adoc[]
+include::{snippets}/postTemp/response-fields.adoc[]
