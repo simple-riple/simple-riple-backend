@@ -11,8 +11,7 @@ import java.time.LocalDateTime
 class HealthController {
 
     @GetMapping
-    fun healthCheck(): ResponseEntity<Map<String, String>> {
-        val response = mapOf("res" to "I'M STILL ALIVE")
-        return ResponseEntity.ok(response);
+    fun healthCheck(): ResponseEntity<String> {
+        return ResponseEntity.ok("I'M STILL ALIVE")
     }
 }

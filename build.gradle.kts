@@ -38,6 +38,9 @@ dependencies {
     // spring core
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    // swagger
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
     // database
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")

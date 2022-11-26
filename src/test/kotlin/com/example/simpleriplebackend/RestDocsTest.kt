@@ -32,7 +32,7 @@ class RestDocsTest {
     fun temp() {
 
         val result = mockMvc.perform(
-            get("/health").contentType(MediaType.APPLICATION_JSON)
+            get("/temp").contentType(MediaType.APPLICATION_JSON)
         )
 
         result
