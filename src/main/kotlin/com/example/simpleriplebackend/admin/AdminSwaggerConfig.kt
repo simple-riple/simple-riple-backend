@@ -1,6 +1,5 @@
-package com.example.simpleriplebackend.config
+package com.example.simpleriplebackend.admin
 
-import io.swagger.annotations.Api
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import springfox.documentation.builders.ApiInfoBuilder
@@ -11,24 +10,25 @@ import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 
 @Configuration
-class SwaggerConfig {
+class AdminSwaggerConfig {
 
     @Bean
-    fun config(): Docket {
+    fun adminConfig(): Docket {
         return Docket(DocumentationType.OAS_30)
+            .groupName("admin")
             .useDefaultResponseMessages(false)
-            .apiInfo(apiInfo())
             .select()
-            .apis(RequestHandlerSelectors.withClassAnnotation(Api::class.java))
+            .apis(RequestHandlerSelectors.basePackage("com.example.simpleriplebackend.admin"))
             .paths(PathSelectors.any())
             .build()
+            .apiInfo(apiInfo())
     }
 
     fun apiInfo(): ApiInfo {
         return ApiInfoBuilder()
-            .title("Simple Riple API Swagger")
-            .description("심플리플 API 명세")
-            .license(null)
+            .title("Simple Riple - Admin API")
+            .description("어드민 API 명세")
+            .version("1.0")
             .build()
     }
 }

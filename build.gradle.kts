@@ -87,7 +87,6 @@ tasks{
         dependsOn(asciidoctor)
         from("${asciidoctor.get().outputDir}") {
             into("BOOT-INF/classes/static/rest-docs")
-//            into("src/main/resources/static/rest-docs")
         }
     }
 }
