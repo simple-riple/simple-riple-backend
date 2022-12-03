@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@Api(description = "임시 테스트용")
+@Api(description = "임시 테스트용 컨트롤러")
 @RequestMapping("/temp")
 @RestController
 class TempController {
