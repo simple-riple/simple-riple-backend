@@ -14,6 +14,13 @@ repositories {
     mavenCentral()
 }
 
+// ---------------------------- ( version ) ----------------------------
+
+val swaggerVersion = "3.0.0"
+val jacocoVersion = "0.8.8"
+
+// ---------------------------- ( plugin + extension ) ----------------------------
+
 plugins {
     id("org.springframework.boot") version "2.7.4"
     id("io.spring.dependency-management") version "1.0.14.RELEASE"
@@ -24,11 +31,23 @@ plugins {
     // 추가
     id("org.asciidoctor.jvm.convert") version "3.3.2"
     id("jacoco")
+    id("org.sonarqube") version "3.5.0.2730"
 }
 
-val swaggerVersion = "3.0.0"
-val jacocoVersion = "0.8.8"
-val snippetsDir = file("build/generated-snippets")
+jacoco {
+    toolVersion = jacocoVersion
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "simple-riple_simple-riple-backend")
+        property("sonar.organization", "simple-riple-sonarqube")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/test/jacocoTestReport.xml")
+    }
+}
+
+// ---------------------------- ( dependency ) ----------------------------
 
 dependencies {
     // kotlin
@@ -56,6 +75,8 @@ dependencies {
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
+// ---------------------------- ( task ) ----------------------------
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -65,11 +86,7 @@ tasks.withType<KotlinCompile> {
 
 tasks{
 
-    // ---------------- ( jacoco ) ----------------
-
-    jacoco {
-        toolVersion = jacocoVersion
-    }
+    // ---------- ( jacoco ) ----------
 
     jacocoTestCoverageVerification {
         violationRules {
@@ -80,7 +97,7 @@ tasks{
                 limit {
                     counter = "LINE"
                     value = "COVEREDRATIO"
-                    minimum = "0.70".toBigDecimal()
+                    minimum = "0.0".toBigDecimal()
                 }
 
                 excludes = listOf()
@@ -97,18 +114,18 @@ tasks{
         finalizedBy(jacocoTestCoverageVerification)
     }
 
-    // ---------------- ( snippet 생성 ) ----------------
+    // ---------- ( adoc ) ----------
 
     asciidoctor {
         dependsOn(test)
-        inputs.dir(snippetsDir)
+        inputs.dir(file("build/generated-snippets"))
     }
 
-    // ---------------- ( base ) ----------------
+    // ---------- ( base ) ----------
 
     test {
         useJUnitPlatform()
-        outputs.dir(snippetsDir)
+        outputs.dir(file("build/generated-snippets"))
     }
 
     jar {
