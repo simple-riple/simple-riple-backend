@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Cache gradle packages
+      - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
           path: |
