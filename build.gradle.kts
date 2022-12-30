@@ -18,6 +18,7 @@ repositories {
 
 val swaggerVersion = "3.0.0"
 val jacocoVersion = "0.8.8"
+val querydslVersion = "5.0.0"
 
 // ---------------------------- ( plugin + extension ) ----------------------------
 
@@ -32,6 +33,7 @@ plugins {
     id("org.asciidoctor.jvm.convert") version "3.3.2"
     id("jacoco")
     id("org.sonarqube") version "3.5.0.2730"
+    kotlin("kapt") version "1.7.10"
 }
 
 jacoco {
@@ -55,20 +57,23 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-
     // spring core
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // swagger
     implementation("io.springfox:springfox-boot-starter:${swaggerVersion}")
 
-    // database
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // db
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
+
+    // jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // querydsl
+    implementation("com.querydsl:querydsl-jpa:${querydslVersion}")
+    kapt("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
+    kaptTest("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
