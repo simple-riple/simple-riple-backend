@@ -84,20 +84,22 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks{
+val snippetsDir = file("build/generated-snippets")
+
+tasks {
 
     // ---------- ( jacoco ) ----------
 
     jacocoTestCoverageVerification {
         violationRules {
             rule {
-                enabled = true
+                enabled = false
                 element = "CLASS"
 
                 limit {
                     counter = "LINE"
                     value = "COVEREDRATIO"
-                    minimum = "0.0".toBigDecimal()
+                    minimum = "0.80".toBigDecimal()
                 }
 
                 excludes = listOf()
@@ -118,14 +120,14 @@ tasks{
 
     asciidoctor {
         dependsOn(test)
-        inputs.dir(file("build/generated-snippets"))
+        inputs.dir(snippetsDir)
     }
 
     // ---------- ( base ) ----------
 
     test {
         useJUnitPlatform()
-        outputs.dir(file("build/generated-snippets"))
+        outputs.dir(snippetsDir)
     }
 
     jar {
