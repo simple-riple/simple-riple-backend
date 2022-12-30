@@ -4,7 +4,6 @@ DOCKER_USERNAME=$1
 DOCKER_REPOSITORY=$2
 DOCKER_TAG_DEV=$3
 
-# docker-compose 재실행
 echo "================== PULL docker image =================="
 docker pull $DOCKER_USERNAME/$DOCKER_REPOSITORY:$DOCKER_TAG_DEV
 
